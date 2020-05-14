@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {addWord,toggleAddWord} from "../redux/actionCreators";
+
 class Add extends Component {
   constructor(props) {
     super(props);
@@ -8,6 +10,7 @@ class Add extends Component {
       vn: "",
     };
   }
+  
   onChange(e) {
     const value = e.target.value;
     this.setState({
@@ -16,14 +19,9 @@ class Add extends Component {
     });
   }
   addWord() {
-    this.props.dispatch({
-      type: "ADD_WORD",
-      en: this.state.en,
-      vn: this.state.vn,
-    });
-    this.props.dispatch({
-        type: "SHOW_ADD_WORD",
-      })
+    const {en ,vn } = this.state;
+    this.props.addWord(en,vn);
+    this.props.toggleAddWord();
   }
   render() {
     return (
@@ -38,4 +36,4 @@ class Add extends Component {
   }
 }
 
-export default connect()(Add);
+export default connect(null,{addWord,toggleAddWord})(Add);

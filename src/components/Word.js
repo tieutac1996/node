@@ -1,21 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {toggleShow,toggleMemorized} from "../redux/actionCreators";
+
 class Word extends Component {
-  memorizedWord() {
-    this.props.dispatch({
-      type: "TOGGLE_MEMORIZED",
-      id: this.props.myWord.id,
-    });
-  }
-  showWord() {
-    this.props.dispatch({
-      type: "TOGGLE_SHOW",
-      id: this.props.myWord.id,
-    });
-  }
 
   render() {
-    const { en, vn, memorized , isShow} = this.props.myWord;
+    const { en, vn, memorized , isShow , id} = this.props.myWord;
     const textDecoration = memorized ? "line-through" : "none";
     const showText = isShow ? vn : '------';
     return (
@@ -23,10 +13,10 @@ class Word extends Component {
         <div className="word-main">
           <div className="word-top">
             <div className="list-items">
-              <button onClick={this.memorizedWord.bind(this)}>
+              <button onClick={() => this.props.toggleMemorized(id)}>
                 <i className="fab fa-accusoft"></i>
               </button>
-              <button onClick={this.showWord.bind(this)}>
+              <button onClick={() => this.props.toggleShow(id)}>
                 <i className="fas fa-adjust"></i>
               </button>
             </div>
@@ -41,4 +31,4 @@ class Word extends Component {
   }
 }
 
-export default connect()(Word);
+export default connect(null,{toggleShow,toggleMemorized})(Word);

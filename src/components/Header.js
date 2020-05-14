@@ -1,20 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import { toggleAddWord } from "../redux/actionCreators";
 class Header extends Component {
-  showAddWord() {
-      this.props.dispatch({
-        type: "SHOW_ADD_WORD",
-      })
-  }
   render() {
     return (
       <div id="header-input">
         <h2>Add Word</h2>
-        <button onClick={this.showAddWord.bind(this)}><span>+</span></button>
+        <button onClick={() => this.props.toggleAddWord()}>
+          <span>+</span>
+        </button>
       </div>
     );
   }
 }
 
-export default connect()(Header);
+export default connect(null, { toggleAddWord })(Header);
